@@ -22,7 +22,7 @@
           colors: {
             ink: '#161616', muted: '#5F6368', line: '#E5E7EB', paper: '#F7F8FA', paper2: '#F2F3F5',
             tvse: { DEFAULT: '#0000DA', deep: '#000A66', ink: '#05052E' },
-            harita: { green: '#00A94F', blue: '#0072CE', purple: '#6E2C91', ink: '#0B1F16' }
+            harita: { green: '#0B6B3A', blue: '#0072CE', purple: '#6E2C91', ink: '#0B1F16' }
           },
           fontFamily: {
             shell: ['Inter', 'Arial', 'Helvetica', 'sans-serif'],
@@ -63,10 +63,10 @@
       --tvse-grad: linear-gradient(135deg, #0000DA 0%, #000A66 100%);
       --tvse-grad-soft: linear-gradient(180deg, rgba(0,0,218,.06) 0%, rgba(0,0,218,0) 100%);
 
-      /* Harita Techserv — set these three tokens from the Harita brand guideline swatches
-         (primary green, approved blue, approved purple). Everything in the Harita section
-         derives from these tokens, so a swatch correction updates the whole section. */
-      --harita-green: #00A94F;
+      /* Harita Techserv — green sampled from the official logo artwork (Haritans editions);
+         blue and purple should be confirmed against the Harita guideline swatches. Everything
+         in the Harita section derives from these tokens, so a swatch correction updates it all. */
+      --harita-green: #0B6B3A;
       --harita-blue: #0072CE;
       --harita-purple: #6E2C91;
       --harita-ink: #0B1F16;
@@ -139,8 +139,10 @@
     /* ---------- Header ---------- */
     .site-header { position: fixed; inset: 0 0 auto 0; z-index: 50; height: var(--header-h); display: flex; align-items: center; transition: background-color .5s var(--ease), border-color .5s, color .5s, backdrop-filter .5s; color: #fff; border-bottom: 1px solid transparent; }
     .site-header.is-solid { background: rgba(255,255,255,.82); backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px); color: var(--ink); border-bottom-color: var(--line); }
-    .logo-plate { display: inline-flex; align-items: center; background: #fff; padding: 8px 12px; border-radius: 2px; transition: background .5s; }
-    .logo-plate img { height: 34px; width: auto; }
+    .logo-plate { display: inline-flex; align-items: center; gap: 14px; background: #fff; padding: 8px 14px; border-radius: 2px; transition: background .5s; }
+    .logo-plate img { height: 32px; width: auto; }
+    .logo-plate .logo-sep { width: 1px; height: 26px; background: var(--line); }
+    @media (max-width: 420px) { .logo-plate { gap: 10px; padding: 6px 10px; } .logo-plate img { height: 26px; } }
     .nav-link { position: relative; font-size: 13px; font-weight: 500; letter-spacing: .02em; text-decoration: none; padding: 12px 0; min-height: 44px; display: inline-flex; align-items: center; }
     .nav-link::after { content: ""; position: absolute; left: 0; bottom: 8px; height: 1px; width: 0; background: currentColor; transition: width .35s var(--ease); }
     .nav-link:hover::after, .nav-link:focus-visible::after, .nav-link[aria-current="true"]::after { width: 100%; }
@@ -163,11 +165,24 @@
     /* ---------- Hero ---------- */
     .hero { position: relative; min-height: 100svh; background: #0A0A12; color: #fff; overflow: hidden; display: grid; grid-template-columns: 1fr; }
     @media (min-width: 1024px) { .hero { grid-template-columns: 45% 55%; } }
-    .hero-art { position: relative; min-height: 52vw; overflow: hidden; }
-    @media (min-width: 1024px) { .hero-art { min-height: 100svh; } }
-    .hero-art img { width: 100%; height: 100%; object-fit: cover; object-position: center 60%; transform: scale(1.05); animation: heroScale 2.4s var(--ease) .2s forwards; }
-    .hero-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,18,.55) 0%, rgba(10,10,18,0) 35%, rgba(10,10,18,0) 70%, rgba(10,10,18,.6) 100%); }
-    @media (min-width: 1024px) { .hero-art::after { background: linear-gradient(90deg, #0A0A12 0%, rgba(10,10,18,.55) 18%, rgba(10,10,18,0) 45%), linear-gradient(180deg, rgba(10,10,18,.5) 0%, rgba(10,10,18,0) 30%); } }
+    .hero-art { position: relative; overflow: hidden; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 6px; padding: 6px; aspect-ratio: 4 / 3; background: #0A0A12; }
+    @media (min-width: 1024px) { .hero-art { aspect-ratio: auto; min-height: 100svh; padding: 6px 6px 6px 0; } }
+    .hg { position: relative; overflow: hidden; background: #15151F; opacity: 0; transform: scale(.94); animation: hgIn 1.1s var(--ease) forwards; }
+    .hg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: center; animation: kenburns 22s ease-in-out infinite alternate; }
+    .hg img + img { opacity: 0; animation: kenburns 26s ease-in-out infinite alternate-reverse, crossfade 14s ease-in-out infinite; }
+    .hg.hg-1 { grid-column: 1 / 3; grid-row: 1; animation-delay: .35s; } .hg.hg-1 img { object-position: center 40%; }
+    .hg.hg-2 { grid-column: 3; grid-row: 1 / 3; animation-delay: .55s; }
+    .hg.hg-3 { grid-column: 1; grid-row: 2; animation-delay: .75s; } .hg.hg-3 img { object-position: 35% 60%; }
+    .hg.hg-4 { grid-column: 2; grid-row: 2; animation-delay: .9s; }
+    .hg.hg-5 { grid-column: 1; grid-row: 3; animation-delay: 1.05s; }
+    .hg.hg-6 { grid-column: 2 / 4; grid-row: 3; animation-delay: 1.2s; } .hg.hg-6 img { object-position: center 30%; }
+    .hg.hg-2 img { animation-duration: 28s; } .hg.hg-4 img { animation-duration: 19s; animation-direction: alternate-reverse; } .hg.hg-5 img { animation-duration: 24s; }
+    .hg .hg-tag { position: absolute; left: 12px; bottom: 10px; z-index: 2; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.85); background: rgba(10,10,18,.45); padding: 5px 8px; backdrop-filter: blur(6px); opacity: 0; animation: loadIn .8s var(--ease) 1.6s forwards; }
+    .hero-art::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(10,10,18,.45) 0%, rgba(10,10,18,0) 30%); }
+    @media (min-width: 1024px) { .hero-art::after { background: linear-gradient(90deg, #0A0A12 0%, rgba(10,10,18,.35) 10%, rgba(10,10,18,0) 28%), linear-gradient(180deg, rgba(10,10,18,.35) 0%, rgba(10,10,18,0) 22%); } }
+    @keyframes hgIn { to { opacity: 1; transform: none } }
+    @keyframes kenburns { from { transform: scale(1) translate(0,0) } to { transform: scale(1.1) translate(1.5%, -1.5%) } }
+    @keyframes crossfade { 0%, 40% { opacity: 0 } 50%, 90% { opacity: 1 } 100% { opacity: 0 } }
     .hero-copy { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; padding: calc(var(--header-h) + 48px) var(--gutter) 56px; }
     @media (min-width: 1024px) { .hero-copy { padding-right: 48px; } }
     .hero-copy::before { content: ""; position: absolute; inset: 0; background: radial-gradient(900px 600px at 10% 70%, rgba(255,255,255,.07), transparent 60%); pointer-events: none; }
@@ -238,6 +253,8 @@
     .tvse-metric { font-size: clamp(64px, 9vw, 128px); line-height: .9; font-weight: 700; letter-spacing: -0.04em; color: var(--tvse-blue); }
     .tvse-product { background: #07071F; color: #fff; position: relative; overflow: hidden; }
     .tvse-product .bg-grad { position: absolute; inset: 0; background: radial-gradient(70% 60% at 30% 50%, rgba(0,0,218,.45), transparent 70%); animation: gradShift 24s ease-in-out infinite alternate; }
+    .video-frame { position: relative; overflow: hidden; background: #000; aspect-ratio: 1080 / 525; }
+    .video-frame video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
     .tvse-product .feature { display: grid; grid-template-columns: 28px 1fr; gap: 16px; padding: 18px 0; border-top: 1px solid rgba(255,255,255,.14); }
     .tvse-product .feature strong { display: block; font-size: 17px; }
     .tvse-product .feature span { color: rgba(255,255,255,.7); font-size: 15px; }
@@ -280,6 +297,15 @@
     .harita-intro { position: relative; overflow: hidden; background: #fff; }
     .harita-intro .accent { position: absolute; right: -10%; top: -20%; width: 56vw; max-width: 820px; aspect-ratio: 1; border-radius: 50%; background: var(--harita-grad); opacity: .12; filter: blur(60px); animation: orb 20s ease-in-out infinite alternate; }
     .harita-intro .accent-2 { position: absolute; left: -15%; bottom: -30%; width: 40vw; max-width: 600px; aspect-ratio: 1; border-radius: 50%; background: var(--harita-grad-2); opacity: .08; filter: blur(70px); animation: orb 26s ease-in-out infinite alternate-reverse; }
+    .harita-tint::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(11,107,58,.55) 0%, rgba(0,114,206,.35) 55%, rgba(11,31,22,0) 100%); mix-blend-mode: multiply; pointer-events: none; }
+    .harita-tint-2::after { content: ""; position: absolute; inset: 0; background: linear-gradient(200deg, rgba(0,114,206,.35) 0%, rgba(110,44,145,.35) 100%); mix-blend-mode: multiply; pointer-events: none; }
+    .champions { display: grid; gap: 20px; grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 768px) { .champions { grid-template-columns: repeat(4, 1fr); gap: 28px; } }
+    .champion { position: relative; }
+    .champion .img-frame { aspect-ratio: 1 / 1; border-radius: 2px; }
+    .champion .img-frame::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--harita-grad); }
+    .champion strong { display: block; margin-top: 14px; font-size: 17px; letter-spacing: -0.01em; }
+    .champion span { display: block; margin-top: 2px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--harita-green); font-weight: 700; }
     .harita-band { height: 4px; width: 96px; background: var(--harita-grad); }
     .harita-focus { display: grid; gap: 1px; background: var(--line); grid-template-columns: 1fr; }
     @media (min-width: 640px) { .harita-focus { grid-template-columns: repeat(2, 1fr); } }
@@ -340,20 +366,32 @@
     .footer-link:hover::after { width: 100%; }
 
     /* ---------- Story reader dialog ---------- */
-    .story-dialog { border: 0; padding: 0; width: min(880px, 100vw - 32px); max-height: min(88dvh, 960px); background: #fff; color: var(--ink); box-shadow: 0 30px 80px rgba(0,0,0,.25); }
-    .story-dialog::backdrop { background: rgba(22,22,22,.55); backdrop-filter: blur(4px); }
-    .story-dialog[open] { animation: dialogIn .5s var(--ease) both; }
-    @keyframes dialogIn { from { opacity: 0; transform: translateY(16px) } to { opacity: 1; transform: none } }
-    .story-dialog .close { position: absolute; right: 12px; top: 12px; width: 44px; height: 44px; border: 0; background: rgba(255,255,255,.9); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
-    .story-dialog .close svg { width: 20px; height: 20px; }
-    .story-body { padding: 32px; font-size: 17px; line-height: 1.7; color: var(--muted); }
-    @media (min-width: 768px) { .story-body { padding: 48px; } }
-    .story-body h2 { color: var(--ink); font-size: clamp(28px, 3.4vw, 42px); line-height: 1.08; letter-spacing: -0.02em; margin: 8px 0 20px; font-weight: 700; }
-    .story-body p { margin: 0 0 18px; }
-    .story-body ul { padding-left: 20px; margin: 0 0 18px; }
-    .story-body .tags { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); font-weight: 700; }
-    .story-dialog .img-frame { max-height: 420px; }
-    .story-dialog .img-frame img { object-position: center 30%; }
+    .story-dialog { border: 0; padding: 0; width: min(1080px, 100vw - 24px); max-width: 100vw; max-height: none; background: #fff; color: var(--ink); box-shadow: 0 40px 100px rgba(0,0,0,.35); border-radius: 6px; overflow: hidden; }
+    .story-dialog::backdrop { background: rgba(10,10,18,.6); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+    .story-dialog[open] { animation: dialogIn .55s var(--ease) both; }
+    @keyframes dialogIn { from { opacity: 0; transform: translateY(18px) scale(.985) } to { opacity: 1; transform: none } }
+    .story-dialog .close { position: absolute; right: 14px; top: 14px; z-index: 5; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(22,22,22,.85); color: #fff; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: background .3s, transform .3s var(--ease); backdrop-filter: blur(6px); }
+    .story-dialog .close:hover { background: #000; transform: rotate(90deg); }
+    .story-dialog .close svg { width: 18px; height: 18px; }
+    .story-layout { display: grid; grid-template-columns: 1fr; height: min(90dvh, 840px); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .story-media { position: relative; min-height: 230px; max-height: 42vh; background: #0A0A12; overflow: hidden; }
+    .story-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .story-media .harita-tint::after { position: absolute; }
+    .story-text { padding: 32px 24px 40px; font-size: 16px; line-height: 1.7; color: var(--muted); }
+    @media (min-width: 900px) {
+      .story-layout { grid-template-columns: 44% 1fr; overflow: hidden; }
+      .story-media { max-height: none; height: 100%; min-height: 0; }
+      .story-text { padding: 56px 56px 56px 52px; overflow-y: auto; height: 100%; font-size: 17px; }
+    }
+    .story-text h2 { color: var(--ink); font-size: clamp(26px, 2.8vw, 40px); line-height: 1.08; letter-spacing: -0.02em; margin: 10px 0 22px; font-weight: 700; }
+    .story-text p { margin: 0 0 18px; }
+    .story-text p:last-child { margin-bottom: 0; }
+    .story-text ul { padding-left: 20px; margin: 0 0 18px; }
+    .story-text .tags { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); font-weight: 700; margin: 26px 0 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+    .story-text .meta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .story-media .brand-strip { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; z-index: 2; }
+    .tvse .story-media .brand-strip { background: var(--tvse-blue); }
+    .harita .story-media .brand-strip { background: var(--harita-grad); }
 
     /* ---------- Utilities ---------- */
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
@@ -367,7 +405,8 @@
       .reveal[data-anim="clip"] > *, .reveal[data-anim="clip-up"] > * { clip-path: none !important; }
       .draw-line, .line-draw, .vline-draw, .timeline .progress, .transition .bar-tvse, .transition .bar-harita { transform: none !important; }
       .transition .harita-mark { opacity: 1 !important; transform: none !important; }
-      .hero-art img { transform: none !important; animation: none !important; }
+      .hg, .hg img, .hg .hg-tag { animation: none !important; opacity: 1 !important; transform: none !important; }
+      .hg img + img { opacity: 0 !important; }
       .hero-orb, .tvse-intro .grad-move, .tvse-intro .geo, .tvse-product .bg-grad, .harita-intro .accent, .harita-intro .accent-2, .scroll-cue i::after { animation: none !important; }
       [data-parallax] { transform: none !important; }
       .card:hover .img-frame img, .img-hover:hover img, .mosaic-tile:hover img { transform: none; }
@@ -381,9 +420,11 @@
 <!-- ============================================================ 01. HEADER ============================================================ -->
 <header class="site-header" id="site-header">
   <div class="wrap flex items-center justify-between gap-6">
-    <a href="#top" class="logo-plate" aria-label="TVS Electronics — back to top">
-      <!-- Official TVSE logo (supplied asset URL). Not recreated, not recolored; white plate preserves clear space on any background. -->
-      <img src="https://www.tvselectronics.in/images/tvse-logo-v2.png" alt="TVS Electronics" width="120" height="34" decoding="async" fetchpriority="high">
+    <a href="#top" class="logo-plate" aria-label="TVS Electronics and Harita Techserv — back to top">
+      <!-- Official logos (TVSE from the supplied asset URL, Harita from the Haritans edition artwork). Not recreated or recolored; the white plate preserves clear space on any background. -->
+      <img src="https://www.tvselectronics.in/images/tvse-logo-v2.png" alt="TVS Electronics" width="113" height="32" decoding="async" fetchpriority="high">
+      <span class="logo-sep" aria-hidden="true"></span>
+      <img src="assets/img/harita-logo.png" alt="Harita Techserv" width="111" height="32" decoding="async" fetchpriority="high">
     </a>
     <nav class="primary-nav items-center gap-9" aria-label="Primary">
       <a class="nav-link" href="#intro">Newsletter</a>
@@ -404,7 +445,7 @@
 <!-- Mobile navigation -->
 <dialog class="mobile-nav" id="mobile-nav" aria-label="Site navigation">
   <div class="wrap flex items-center justify-between" style="height:var(--header-h)">
-    <span class="logo-plate" style="padding-left:0"><img src="https://www.tvselectronics.in/images/tvse-logo-v2.png" alt="TVS Electronics" width="120" height="34" loading="lazy"></span>
+    <span class="logo-plate" style="padding-left:0"><img src="https://www.tvselectronics.in/images/tvse-logo-v2.png" alt="TVS Electronics" width="113" height="32" loading="lazy"><span class="logo-sep" aria-hidden="true"></span><img src="assets/img/harita-logo.png" alt="Harita Techserv" width="111" height="32" loading="lazy"></span>
     <button class="menu-btn" id="menu-close" aria-label="Close menu">
       <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
@@ -436,8 +477,13 @@
       <a class="btn" style="background:transparent;border-color:rgba(255,255,255,.5);color:#fff" href="#harita">Harita Techserv <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </div>
-  <div class="hero-art">
-    <img src="assets/img/hero-kb106-keyboard.webp" width="1080" height="525" alt="Close-up of the TVS-E KB-106 wired keyboard against a dark backdrop" fetchpriority="high" decoding="async">
+  <div class="hero-art" role="img" aria-label="Moments from the quarter: industry events, the KB-106 keyboard, engineering, and teams at TVS Electronics and Harita Techserv">
+    <figure class="hg hg-1 m-0"><img src="assets/img/tvse-retechcon-2026.webp" alt="" fetchpriority="high" decoding="async"><img src="assets/img/tvse-oea-delegation-photo.webp" alt="" loading="lazy" decoding="async"><span class="hg-tag">Industry</span></figure>
+    <figure class="hg hg-2 m-0"><img src="assets/img/harita-engine.webp" alt="" fetchpriority="high" decoding="async"><img src="assets/img/tvse-leadership-03.webp" alt="" loading="lazy" decoding="async"><span class="hg-tag">Engineering</span></figure>
+    <figure class="hg hg-3 m-0"><img src="assets/img/tvse-kb106-keyboard.webp" alt="" decoding="async"><span class="hg-tag">Product</span></figure>
+    <figure class="hg hg-4 m-0"><img src="assets/img/harita-drafting.webp" alt="" decoding="async"><span class="hg-tag">Design</span></figure>
+    <figure class="hg hg-5 m-0"><img src="assets/img/tvse-factory-engagement-01.webp" alt="" decoding="async"><span class="hg-tag">People</span></figure>
+    <figure class="hg hg-6 m-0"><img src="assets/img/tvse-fun-friday-team.webp" alt="" decoding="async"><img src="assets/img/tvse-ld-summit-awards-2026.webp" alt="" loading="lazy" decoding="async"><span class="hg-tag">Milestones</span></figure>
   </div>
   <div class="scroll-cue" aria-hidden="true"><i></i> Scroll</div>
 </section>
@@ -497,8 +543,8 @@
 <section class="section" aria-labelledby="tvse-feature-title">
   <div class="wrap grid gap-10 lg:grid-cols-12 lg:items-center">
     <div class="lg:col-span-7 card img-hover reveal" data-anim="clip">
-      <div class="img-frame ratio-1-1">
-        <img src="assets/img/tvse-productronica-india-2026.webp" width="800" height="800" alt="TVS Electronics thank-you visual from Productronica India 2026 — Design. Build. Scale." loading="lazy" decoding="async">
+      <div class="img-frame ratio-16-9">
+        <img src="assets/img/tvse-retechcon-2026.webp" width="541" height="305" alt="TVS Electronics stand at ReTechCon 2026 in Mumbai, with visitors exploring retail technology and product demonstrations" loading="lazy" decoding="async">
       </div>
     </div>
     <div class="lg:col-span-5 lg:pl-8">
@@ -522,13 +568,13 @@
     <div class="mt-14 grid gap-10 lg:grid-cols-6" data-stagger>
       <!-- Featured article: 2-col wide -->
       <article class="card lg:col-span-6 grid gap-8 lg:grid-cols-6 reveal" style="--i:0">
-        <div class="img-frame ratio-16-9 lg:col-span-4 lg:ratio-21-9">
-          <img src="assets/img/tvse-retechcon-2026.webp" width="541" height="305" alt="TVS Electronics stand at ReTechCon 2026 in Mumbai with visitors exploring retail technology demonstrations" loading="lazy" decoding="async">
+        <div class="img-frame ratio-16-9 lg:col-span-4">
+          <img src="assets/img/tvse-productronica-india-2026.webp" width="800" height="800" alt="TVS Electronics at Productronica India 2026 — Design. Build. Scale." loading="lazy" decoding="async" style="object-position:center 32%">
         </div>
         <div class="lg:col-span-2 flex flex-col justify-end">
-          <p class="cat">Events</p>
-          <h3 class="h-sm mt-3"><button class="stretched text-left" type="button" data-story="story-retechcon" style="font:inherit">ReTechCon 2026, Mumbai</button></h3>
-          <p class="body mt-3">Bringing together industry professionals and technology leaders from across the retail ecosystem, ReTechCon was an opportunity to showcase our capabilities across electronics manufacturing and business technology solutions.</p>
+          <p class="cat">Manufacturing</p>
+          <h3 class="h-sm mt-3"><button class="stretched text-left" type="button" data-story="story-productronica" style="font:inherit">Productronica India 2026: Design. Build. Scale.</button></h3>
+          <p class="body mt-3">TVS Electronics showcased its end-to-end Electronics Manufacturing Services (EMS) capabilities, strengthening conversations around design, manufacturing, scalability and technology partnerships.</p>
           <p class="date mt-4">Q3 2026</p>
           <span class="link mt-2">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
@@ -545,7 +591,7 @@
       </article>
       <article class="card lg:col-span-2 reveal" style="--i:2">
         <div class="img-frame ratio-4-3"><img src="assets/img/tvse-oea-delegation-visit.webp" width="800" height="800" alt="OE-A delegation with TVS Electronics hosts at the Bengaluru facility, 18 September 2026" loading="lazy" decoding="async"></div>
-        <p class="cat mt-6">Manufacturing</p>
+        <p class="cat mt-6">Events</p>
         <h3 class="h-sm mt-3"><button class="stretched text-left" type="button" data-story="story-oea" style="font:inherit">OE-A delegation visits TVS Electronics Bengaluru</button></h3>
         <p class="body mt-3">Industry interaction, plant engagement and knowledge exchange across the evolving electronics manufacturing ecosystem.</p>
         <p class="date mt-4">18 September 2026</p>
@@ -568,8 +614,11 @@
   <div class="bg-grad" aria-hidden="true"></div>
   <div class="wrap relative grid gap-12 lg:grid-cols-10 lg:items-center">
     <div class="lg:col-span-6 reveal" data-anim="scale">
-      <div data-parallax="-20" style="will-change:transform">
-        <img src="assets/img/tvse-kb106-keyboard.webp" width="1080" height="525" alt="TVS-E KB-106 wired keyboard with 106-key layout, photographed from a low angle" loading="lazy" decoding="async" style="width:100%;height:auto">
+      <div class="video-frame" data-parallax="-20" style="will-change:transform">
+        <!-- Product film supplied by TVS Electronics; poster falls back to the product still -->
+        <video data-ambient autoplay loop muted playsinline preload="metadata" poster="assets/img/tvse-kb106-keyboard.webp" aria-label="TVS-E KB-106 wired keyboard product film" width="1080" height="525">
+          <source src="https://www.tvselectronics.in/videos/kb-106.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
     <div class="lg:col-span-4">
@@ -717,7 +766,7 @@
     <div class="lg:col-span-4 lg:col-start-9 harita-mark">
       <div class="bg-white p-6 inline-flex" style="border-radius:2px">
         <!-- Official Harita Techserv logo (supplied asset URL), on white for clear space and contrast. -->
-        <img src="https://harita.in/wp-content/uploads/2026/08/cropped-Haritha-Logo-1-scaled-1.png" alt="Harita Techserv" width="200" height="60" style="height:auto;width:200px;max-width:100%" loading="lazy" decoding="async">
+        <img src="assets/img/harita-logo.png" alt="Harita Techserv" width="200" height="60" style="height:auto;width:200px;max-width:100%" loading="lazy" decoding="async">
       </div>
       <p class="body mt-6">Haritans · Q3 2026 Edition</p>
     </div>
@@ -733,7 +782,7 @@
   <div class="accent-2" aria-hidden="true"></div>
   <div class="wrap relative">
     <div class="reveal inline-flex bg-white p-3" data-anim="scale" style="border-radius:2px; box-shadow: 0 0 0 1px var(--line)">
-      <img src="https://harita.in/wp-content/uploads/2026/08/cropped-Haritha-Logo-1-scaled-1.png" alt="Harita Techserv" width="180" height="54" style="height:auto;width:180px" loading="lazy" decoding="async">
+      <img src="assets/img/harita-logo.png" alt="Harita Techserv" width="180" height="54" style="height:auto;width:180px" loading="lazy" decoding="async">
     </div>
     <div class="harita-band mt-14 line-draw reveal"></div>
     <h2 id="harita-title" class="display mt-6 reveal" data-anim="scale" style="font-size:clamp(44px,8vw,120px)">Harita Techserv</h2>
@@ -754,9 +803,10 @@
 <!-- 12. HARITA FEATURED STORY -->
 <section class="section" aria-labelledby="harita-feature-title" style="background:var(--bg-soft)">
   <div class="wrap grid gap-10 lg:grid-cols-12 lg:items-center">
-    <div class="lg:col-span-6 reveal" data-anim="clip">
-      <!-- [ADD IMAGE]: Harita Technology Spotlight visual -->
-      <div class="ph ph-harita ratio-4-3" role="img" aria-label="Image placeholder: Technology Spotlight"><span>[ADD IMAGE]</span></div>
+    <div class="lg:col-span-6 reveal img-hover" data-anim="clip">
+      <div class="img-frame ratio-4-3 harita-tint">
+        <img src="assets/img/harita-engine.webp" width="1600" height="900" alt="Macro view of precision-engineered engine components" loading="lazy" decoding="async">
+      </div>
     </div>
     <div class="lg:col-span-5 lg:col-start-8">
       <p class="cat reveal">Featured · Technology Spotlight</p>
@@ -770,6 +820,24 @@
   </div>
 </section>
 
+<!-- CLIENT APPRECIATION — customer champions (attached portraits) -->
+<section class="section-tight" id="harita-champions" aria-labelledby="harita-champ-title">
+  <div class="wrap grid gap-12 lg:grid-cols-12 lg:items-end">
+    <div class="lg:col-span-4">
+      <p class="cat reveal">Client Appreciation Highlights</p>
+      <h2 id="harita-champ-title" class="h-lg mt-5 reveal">Celebrating our customer champions</h2>
+      <p class="body mt-6 reveal">Behind every successful delivery is a team committed to understanding customer needs, solving challenges and delivering with consistency. A big thank you to our customer champions for your hard work, positive energy and dedication.</p>
+      <p class="mt-4 font-bold reveal" style="color:var(--harita-ink)">Keep up the amazing work!</p>
+    </div>
+    <div class="lg:col-span-8 champions" data-stagger>
+      <figure class="champion m-0 reveal" style="--i:0"><div class="img-frame"><img src="assets/img/harita-champion-harish-raghavendra.webp" width="518" height="518" alt="Harish Raghavendra" loading="lazy" decoding="async"></div><figcaption><strong>Harish Raghavendra</strong><span>Customer Champion</span></figcaption></figure>
+      <figure class="champion m-0 reveal" style="--i:1"><div class="img-frame"><img src="assets/img/harita-champion-aravinth.webp" width="419" height="419" alt="Aravinth" loading="lazy" decoding="async"></div><figcaption><strong>Aravinth</strong><span>Customer Champion</span></figcaption></figure>
+      <figure class="champion m-0 reveal" style="--i:2"><div class="img-frame"><img src="assets/img/harita-champion-tamilselvan-kalisamy.webp" width="260" height="260" alt="Tamilselvan Kalisamy" loading="lazy" decoding="async"></div><figcaption><strong>Tamilselvan Kalisamy</strong><span>Customer Champion</span></figcaption></figure>
+      <figure class="champion m-0 reveal" style="--i:3"><div class="img-frame"><img src="assets/img/harita-champion-santhosh-kumar-r.webp" width="403" height="403" alt="Santhosh Kumar R" loading="lazy" decoding="async"></div><figcaption><strong>Santhosh Kumar R</strong><span>Customer Champion</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
 <!-- 13. HARITA NEWS GRID (editorial index composition, distinct from TVSE cards) -->
 <section class="section" id="harita-news" aria-labelledby="harita-news-title">
   <div class="wrap">
@@ -778,9 +846,9 @@
       <p class="body reveal max-w-md">This quarter, we celebrate the achievements that brought our teams together and the initiatives that continue to strengthen our culture of innovation.</p>
     </div>
     <div class="mt-12" data-stagger>
-      <article class="harita-row reveal" style="--i:0"><p class="num">01</p><div><p class="cat">Business</p><h3 class="mt-3">Progress. Collaboration. Innovation.</h3></div><p class="body">Q3 was a quarter of continued progress, collaboration and new opportunities &mdash; engineering excellence, customer focus, innovation and people development.</p><div class="ph ph-harita thumb" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div></article>
-      <article class="harita-row reveal" style="--i:1"><p class="num">02</p><div><p class="cat">People</p><h3 class="mt-3">Celebrating our customer champions</h3></div><p class="body">Behind every successful delivery is a team committed to understanding customer needs, solving challenges and delivering with consistency. A big thank you to our customer champions for your hard work, positive energy and dedication. <span class="ph-text">[ADD EMPLOYEE NAMES &amp; PHOTOGRAPHS]</span></p><div class="ph ph-harita-2 thumb" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div></article>
-      <article class="harita-row reveal" style="--i:2"><p class="num">03</p><div><p class="cat">Engineering</p><h3 class="mt-3">Learn. Share. Grow.</h3></div><p class="body">Knowledge sharing continues to play an important role in building stronger, more capable teams. During Q3, team members participated in sessions sharing practical knowledge, technology insights and new approaches to everyday challenges.</p><div class="ph ph-harita thumb" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div></article>
+      <article class="harita-row reveal" style="--i:0"><p class="num">01</p><div><p class="cat">Business</p><h3 class="mt-3">Progress. Collaboration. Innovation.</h3></div><p class="body">Q3 was a quarter of continued progress, collaboration and new opportunities &mdash; engineering excellence, customer focus, innovation and people development.</p><div class="img-frame thumb harita-tint"><img src="assets/img/harita-blueprint.webp" width="1600" height="904" alt="" loading="lazy" decoding="async"></div></article>
+      <article class="harita-row reveal" style="--i:1"><p class="num">02</p><div><p class="cat">People</p><h3 class="mt-3">Celebrating our customer champions</h3></div><p class="body">Behind every successful delivery is a team committed to understanding customer needs, solving challenges and delivering with consistency. A big thank you to our customer champions for your hard work, positive energy and dedication. <a class="link" href="#harita-champions">Meet the champions <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p><div class="thumb grid grid-cols-2 gap-1"><img src="assets/img/harita-champion-harish-raghavendra.webp" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;aspect-ratio:1"><img src="assets/img/harita-champion-aravinth.webp" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;aspect-ratio:1"><img src="assets/img/harita-champion-tamilselvan-kalisamy.webp" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;aspect-ratio:1"><img src="assets/img/harita-champion-santhosh-kumar-r.webp" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;aspect-ratio:1"></div></article>
+      <article class="harita-row reveal" style="--i:2"><p class="num">03</p><div><p class="cat">Engineering</p><h3 class="mt-3">Learn. Share. Grow.</h3></div><p class="body">Knowledge sharing continues to play an important role in building stronger, more capable teams. During Q3, team members participated in sessions sharing practical knowledge, technology insights and new approaches to everyday challenges.</p><div class="img-frame thumb harita-tint-2"><img src="assets/img/harita-drafting.webp" width="1600" height="902" alt="" loading="lazy" decoding="async"></div></article>
       <article class="harita-row reveal" style="--i:3"><p class="num">04</p><div><p class="cat">People</p><h3 class="mt-3">Together, we make it happen</h3></div><p class="body">Q3 brought opportunities to collaborate, connect and celebrate as teams. From project milestones to team activities, every moment contributes to the culture we build together. Teamwork · Collaboration · Learning · Celebration.</p><div class="ph ph-harita-2 thumb" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div></article>
       <article class="harita-row reveal" style="--i:4"><p class="num">05</p><div><p class="cat">Wellness</p><h3 class="mt-3">Small habits. Big difference.</h3></div><div class="body"><p class="m-0">A productive workplace starts with healthy and energised people. Try these during your workday:</p><ol class="mt-3 pl-5 space-y-1"><li>Take movement breaks</li><li>Stay hydrated</li><li>Correct your posture</li><li>Stretch</li><li>Take a mental break</li></ol></div><div class="ph ph-harita thumb" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div></article>
       <article class="harita-row reveal" style="--i:5; border-bottom:1px solid var(--line)"><p class="num">06</p><div><p class="cat">Culture</p><h3 class="mt-3">Mindset matters</h3></div><p class="body">A positive mindset can influence collaboration, creativity and the way we approach everyday challenges. Recognition, continuous learning, open communication, team collaboration, supportive leadership and career development help us grow. Every contribution matters. Every idea can create an impact.</p><div class="ph ph-harita-2 thumb" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div></article>
@@ -803,8 +871,9 @@
       <div class="mt-10 reveal"><a class="btn btn-light" href="https://www.harita.in" target="_blank" rel="noopener">Discover more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div>
     </div>
     <div class="lg:col-span-5 lg:col-start-8">
-      <!-- [ADD IMAGE]: Harita engineering / technology visual (or video: autoplay loop muted playsinline) -->
-      <div class="ph ph-harita-2 ratio-3-4 reveal" data-anim="right" role="img" aria-label="Image placeholder: engineering technology visual"><span>[ADD IMAGE]</span></div>
+      <div class="img-frame ratio-3-4 reveal harita-tint-2" data-anim="right">
+        <img src="assets/img/harita-drafting.webp" width="1600" height="902" alt="Engineering drafting desk with technical drawings, scale ruler and precision tools" loading="lazy" decoding="async" style="object-position:30% center">
+      </div>
     </div>
   </div>
 </section>
@@ -919,7 +988,7 @@
         <p class="mt-3 text-xs" style="color:var(--muted)">@tvselectronics · <span class="ph-text">[ADD SOCIAL URLS]</span></p>
       </div>
       <div class="brand-harita lg:pl-16 lg:border-l" style="border-color:var(--line)">
-        <img src="https://harita.in/wp-content/uploads/2026/08/cropped-Haritha-Logo-1-scaled-1.png" alt="Harita Techserv" width="160" height="48" style="height:auto;width:160px" loading="lazy" decoding="async">
+        <img src="assets/img/harita-logo.png" alt="Harita Techserv" width="160" height="48" style="height:auto;width:160px" loading="lazy" decoding="async">
         <p class="body mt-8 max-w-sm">Engineering Excellence. People First. Continuous Innovation.</p>
         <a class="link mt-4" href="https://www.harita.in" target="_blank" rel="noopener" style="color:var(--harita-green)">www.harita.in <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
         <div class="social mt-6 flex gap-3" aria-label="Harita Techserv social media">
@@ -952,56 +1021,70 @@
 
 <!-- Story bodies (supplied newsletter copy) -->
 <template id="story-q3">
-  <div class="brand-tvse tvse"><div class="img-frame ratio-16-9"><img src="assets/img/tvse-productronica-india-2026.webp" alt="" loading="lazy"></div>
-  <div class="story-body"><p class="cat">Featured Story · Q3 2026</p><h2 id="story-title">Driving Progress Through Technology, Partnerships &amp; Innovation</h2>
+  <div class="story-layout brand-tvse tvse"><div class="story-media"><span class="brand-strip"></span><img src="assets/img/tvse-productronica-india-2026.webp" alt="" loading="lazy" style="object-position:center 40%"></div>
+  <div class="story-text"><p class="cat">Featured Story · Q3 2026</p><h2 id="story-title">Driving Progress Through Technology, Partnerships &amp; Innovation</h2>
   <p>The third quarter of 2026 was marked by meaningful industry engagements, customer interactions, manufacturing ecosystem connections and continued product innovation at TVS Electronics.</p>
   <p>From major industry events to strategic ecosystem interactions and product innovation, Q3 reflected our commitment to building solutions that enable smarter businesses and stronger connections.</p>
   <p class="tags">01 · Connecting with industry at major events</p>
   <p><strong>ReTechCon 2026, Mumbai.</strong> TVS Electronics participated at ReTechCon 2026, bringing together industry professionals and technology leaders from across the retail ecosystem. The event provided an opportunity to showcase our capabilities across electronics manufacturing and business technology solutions while connecting with customers, partners and industry stakeholders.</p>
-  <p><strong>Productronica India 2026.</strong> TVS Electronics showcased its end-to-end Electronics Manufacturing Services (EMS) capabilities, engaging with industry professionals and exploring new opportunities across the electronics manufacturing ecosystem. The event strengthened our conversations around design, manufacturing, scalability and technology partnerships. Design. Build. Scale. — Building what’s next in electronics manufacturing.</p>
-  <p><strong>InfoComm India 2026.</strong> TVS Electronics presented its Enterprise AIDC Solutions, highlighting solutions designed to support connected and efficient business operations. Our portfolio spans enterprise mobility, rugged scanning, industrial printing, RFID and warehouse automation solutions.</p>
+  <p><strong>Productronica India 2026.</strong> TVS Electronics showcased its end-to-end Electronics Manufacturing Services (EMS) capabilities, engaging with industry professionals and exploring new opportunities across the electronics manufacturing ecosystem. Design. Build. Scale. — Building what’s next in electronics manufacturing.</p>
+  <p><strong>InfoComm India 2026.</strong> TVS Electronics presented its Enterprise AIDC Solutions, highlighting solutions designed to support connected and efficient business operations across enterprise mobility, rugged scanning, industrial printing, RFID and warehouse automation.</p>
   <p class="tags">02 · Strengthening the electronics manufacturing ecosystem</p>
   <p>TVS Electronics hosted an OE-A delegation visit at our Bengaluru facility, creating an opportunity for industry interaction, plant engagement and knowledge exchange.</p>
   <p class="tags">03 · Recognising excellence</p>
-  <p>TVS Electronics received recognition at the 24th Edition Future of L&amp;D Summit &amp; Awards 2026, with two awards: Best Digital Learning Initiative and Excellence in Learning &amp; Development.</p></div></div>
+  <p>TVS Electronics received recognition at the 24th Edition Future of L&amp;D Summit &amp; Awards 2026, with two awards: Best Digital Learning Initiative and Excellence in Learning &amp; Development.</p>
+  <div class="meta"><span>Mumbai</span><span>Bengaluru</span><span>Q3 2026</span></div></div></div>
 </template>
 <template id="story-retechcon">
-  <div class="brand-tvse tvse"><div class="img-frame ratio-16-9"><img src="assets/img/tvse-retechcon-2026.webp" alt="" loading="lazy"></div>
-  <div class="story-body"><p class="cat">Events · Mumbai</p><h2 id="story-title">ReTechCon 2026</h2>
+  <div class="story-layout brand-tvse tvse"><div class="story-media"><span class="brand-strip"></span><img src="assets/img/tvse-retechcon-2026.webp" alt="" loading="lazy"></div>
+  <div class="story-text"><p class="cat">Events · Mumbai</p><h2 id="story-title">ReTechCon 2026</h2>
   <p>TVS Electronics participated at ReTechCon 2026, bringing together industry professionals and technology leaders from across the retail ecosystem.</p>
   <p>The event provided an opportunity to showcase our capabilities across electronics manufacturing and business technology solutions while connecting with customers, partners and industry stakeholders.</p>
-  <p class="tags">Key focus</p><p>Electronics Manufacturing · Retail Technology · Business Solutions · Industry Collaboration</p></div></div>
+  <p class="tags">Key focus</p><p>Electronics Manufacturing · Retail Technology · Business Solutions · Industry Collaboration</p>
+  <div class="meta"><span>ReTechCon 2026</span><span>Q3 2026</span></div></div></div>
+</template>
+<template id="story-productronica">
+  <div class="story-layout brand-tvse tvse"><div class="story-media"><span class="brand-strip"></span><img src="assets/img/tvse-productronica-india-2026.webp" alt="" loading="lazy"></div>
+  <div class="story-text"><p class="cat">Manufacturing</p><h2 id="story-title">Productronica India 2026: Design. Build. Scale.</h2>
+  <p>At Productronica India 2026, TVS Electronics showcased its end-to-end Electronics Manufacturing Services (EMS) capabilities, engaging with industry professionals and exploring new opportunities across the electronics manufacturing ecosystem.</p>
+  <p>The event strengthened our conversations around design, manufacturing, scalability and technology partnerships.</p>
+  <p class="tags">Design. Build. Scale.</p><p>Building what’s next in electronics manufacturing.</p>
+  <div class="meta"><span>Productronica India 2026</span><span>Q3 2026</span></div></div></div>
 </template>
 <template id="story-infocomm">
-  <div class="brand-tvse tvse"><div class="img-frame ratio-16-9"><img src="assets/img/tvse-infocomm-india-2026.webp" alt="" loading="lazy"></div>
-  <div class="story-body"><p class="cat">Business</p><h2 id="story-title">InfoComm India 2026: Enterprise AIDC Solutions</h2>
+  <div class="story-layout brand-tvse tvse"><div class="story-media"><span class="brand-strip"></span><img src="assets/img/tvse-infocomm-india-2026.webp" alt="" loading="lazy"></div>
+  <div class="story-text"><p class="cat">Business</p><h2 id="story-title">InfoComm India 2026: Enterprise AIDC Solutions</h2>
   <p>At InfoComm India 2026, TVS Electronics presented its Enterprise AIDC Solutions, highlighting solutions designed to support connected and efficient business operations.</p>
   <p>Our portfolio spans enterprise mobility, rugged scanning, industrial printing, RFID and warehouse automation solutions.</p>
-  <p class="tags">Focus</p><p>Enterprise Mobility · Scanning · Printing · RFID · Warehouse Automation</p></div></div>
+  <p class="tags">Focus</p><p>Enterprise Mobility · Scanning · Printing · RFID · Warehouse Automation</p>
+  <div class="meta"><span>InfoComm India 2026</span><span>Q3 2026</span></div></div></div>
 </template>
 <template id="story-oea">
-  <div class="brand-tvse tvse"><div class="img-frame ratio-16-9"><img src="assets/img/tvse-oea-delegation-photo.webp" alt="" loading="lazy"></div>
-  <div class="story-body"><p class="cat">Manufacturing · 18 September 2026</p><h2 id="story-title">OE-A Delegation Visit, TVS Electronics Bengaluru</h2>
+  <div class="story-layout brand-tvse tvse"><div class="story-media"><span class="brand-strip"></span><img src="assets/img/tvse-oea-delegation-visit.webp" alt="" loading="lazy" style="object-position:center 55%"></div>
+  <div class="story-text"><p class="cat">Events · 18 September 2026</p><h2 id="story-title">OE-A Delegation Visit, TVS Electronics Bengaluru</h2>
   <p>TVS Electronics hosted an OE-A delegation visit at our Bengaluru facility, creating an opportunity for industry interaction, plant engagement and knowledge exchange.</p>
   <p>The visit brought together industry stakeholders to explore the evolving electronics manufacturing ecosystem and foster stronger connections across the value chain.</p>
-  <p class="tags">Industry Interaction · Plant Tour · Knowledge Exchange</p></div></div>
+  <p class="tags">Highlights</p><p>Industry Interaction · Plant Tour · Knowledge Exchange</p>
+  <div class="meta"><span>TVS Electronics Ltd., Bengaluru</span><span>18 September 2026</span></div></div></div>
 </template>
 <template id="story-awards">
-  <div class="brand-tvse tvse"><div class="img-frame ratio-16-9"><img src="assets/img/tvse-ld-summit-awards-2026.webp" alt="" loading="lazy"></div>
-  <div class="story-body"><p class="cat">Achievements</p><h2 id="story-title">TVS Electronics Recognised at L&amp;D Summit &amp; Awards 2026</h2>
+  <div class="story-layout brand-tvse tvse"><div class="story-media"><span class="brand-strip"></span><img src="assets/img/tvse-ld-summit-awards-2026.webp" alt="" loading="lazy"></div>
+  <div class="story-text"><p class="cat">Achievements</p><h2 id="story-title">TVS Electronics Recognised at L&amp;D Summit &amp; Awards 2026</h2>
   <p>TVS Electronics received recognition at the 24th Edition Future of L&amp;D Summit &amp; Awards 2026, with two awards:</p>
   <ul><li>Best Digital Learning Initiative</li><li>Excellence in Learning &amp; Development</li></ul>
-  <p>These recognitions highlight the organisation's continued focus on learning, capability development and employee growth.</p></div></div>
+  <p>These recognitions highlight the organisation's continued focus on learning, capability development and employee growth.</p>
+  <div class="meta"><span>24th Edition Future of L&amp;D Summit &amp; Awards</span><span>Q3 2026</span></div></div></div>
 </template>
 <template id="story-harita-tech">
-  <div class="brand-harita harita"><div class="ph ph-harita" style="aspect-ratio:21/9" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div>
-  <div class="story-body"><p class="cat">Technology Spotlight · Q3 2026</p><h2 id="story-title">From Ideas to Intelligent Solutions</h2>
+  <div class="story-layout brand-harita harita"><div class="story-media harita-tint"><span class="brand-strip"></span><img src="assets/img/harita-engine.webp" alt="" loading="lazy"></div>
+  <div class="story-text"><p class="cat">Technology Spotlight · Q3 2026</p><h2 id="story-title">From Ideas to Intelligent Solutions</h2>
   <p>Technology continues to transform the way engineering teams design, develop and deliver solutions.</p>
   <p>AI, automation, data-driven decision-making and connected systems are creating new opportunities to improve productivity and simplify complex workflows.</p>
   <p>At Harita Techserv, continuous learning and technology adoption remain important parts of our journey toward building smarter and more efficient solutions.</p>
   <p class="tags">Innovation in action</p>
   <ul><li>AI-assisted workflows</li><li>Data-driven decision-making</li><li>Process automation</li><li>Engineering digitisation</li><li>Continuous learning</li><li>Smarter customer solutions</li></ul>
-  <p>Innovation is not only about adopting new technology. It is about creating better ways to solve real-world problems.</p></div></div>
+  <p>Innovation is not only about adopting new technology. It is about creating better ways to solve real-world problems.</p>
+  <div class="meta"><span>Harita Techserv</span><span>Q3 2026</span></div></div></div>
 </template>
 
 <!-- Lucide icons (decorative footer icons; CTA arrows are inline SVG so motion never depends on the CDN) -->
@@ -1091,6 +1174,8 @@
     if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
     document.body.style.overflow = 'hidden';
     dlg.scrollTop = 0;
+    var pane = dlg.querySelector('.story-text'); if (pane) pane.scrollTop = 0;
+    var lay = dlg.querySelector('.story-layout'); if (lay) lay.scrollTop = 0;
     document.getElementById('story-close').focus();
   }
   function closeStory() { if (dlg.open) dlg.close(); }

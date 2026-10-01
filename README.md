@@ -13,9 +13,9 @@ Open `index.html` directly, or serve the folder with any static server.
 
 | Topic | Implementation |
 | --- | --- |
-| Logos | Loaded from the supplied asset URLs, never redrawn. Always placed on a white plate for clear space. No shadows, rotation, recolouring or cropping. |
+| Logos | TVSE logo loads from the supplied asset URL; the Harita logo (`assets/img/harita-logo.png`) is the official artwork extracted from the Haritans editions. Both sit together on a white plate in the header; never redrawn, shadowed, rotated, recoloured or cropped. |
 | TVSE colour | `--tvse-blue: #0000DA` plus tints and shades of the same hue only (`--tvse-deep`, `--tvse-ink`). |
-| Harita colour | `--harita-green`, `--harita-blue`, `--harita-purple` tokens in `:root`. **Set these from the Harita brand guideline swatches** — the guideline PDF was not attached, so the current values are provisional and every Harita gradient and accent derives from these three tokens. |
+| Harita colour | `--harita-green` (#0B6B3A) is sampled from the official logo mark. `--harita-blue` and `--harita-purple` remain provisional until confirmed against the Harita guideline swatches; every Harita gradient and accent derives from these three tokens. |
 | TVSE type | D-DIN (digital typeface), self-hosted. Headlines Bold, body Regular. |
 | Harita type | `"DIN 2014"` is referenced by name and renders wherever the licensed font is installed; it is not redistributed. Fallback chain: D-DIN → Arial → Helvetica. |
 | Shared shell | Inter (Google Fonts) is used only in the neutral header, hero, intro, transition, closing and footer. |
@@ -25,7 +25,7 @@ Open `index.html` directly, or serve the folder with any static server.
 
 Everything on the page comes from the supplied documents. Items the source did not provide are marked in the page and should be filled before publishing:
 
-- `[ADD IMAGE]` — all Harita visuals (the Haritans draft contained no photographs) and the ITIL Training photo.
+- `[ADD IMAGE]` — remaining Harita visuals (timeline milestones, team moments, wellness, mindset) and the ITIL Training photo. The Harita featured story, technology feature and index rows use the engineering imagery from the Haritans editions; the customer-champion portraits are the four supplied photographs, named per the June'26 Client Appreciation page.
 - `[Achievement 01–04]`, `[Session Topic 01/02]`, `[Employee Name] — [Date]` — Harita milestones, knowledge-sharing sessions and birthday stars, as drafted.
 - `[ADD CTA URL]` (HTML comments / `data-placeholder` attributes) — KB-106 product page, caption-challenge submission link, social profiles, Privacy and Terms pages. These currently point to the company home pages so every button works.
 - `[ADD SOCIAL URLS]` — footer social icons.
@@ -34,8 +34,7 @@ No statistics, dates, partnerships or claims were invented; the "Q3 at a glance"
 
 ## Video
 
-No video asset was supplied, so the page uses still photography. If a video is added, use
-`<video data-ambient autoplay loop muted playsinline>` inside an image frame — the script sets `playbackRate = 0.7` and respects reduced motion.
+The KB-106 product spotlight plays `https://www.tvselectronics.in/videos/kb-106.mp4` as an ambient film (`autoplay loop muted playsinline`, `playbackRate = 0.7`, poster falls back to the product still, paused under reduced motion). The hero is an animated six-tile image grid with staggered entrance, slow Ken Burns drift and cross-fading tiles.
 
 ## Accessibility and motion
 
