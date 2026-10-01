@@ -271,6 +271,39 @@
     details.riddle .a { padding: 0 0 22px 56px; font-size: 22px; font-weight: 700; color: var(--tvse-blue); letter-spacing: -0.01em; }
     details.riddle .a small { display: block; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
 
+    /* ---------- TVSE Play Break: Tic Tac Toe ---------- */
+    .ttt { display: grid; gap: 40px; }
+    @media (min-width: 1024px) { .ttt { grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; } }
+    .ttt-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; background: var(--tvse-blue); padding: 8px; max-width: 480px; width: 100%; margin: 0 auto; aspect-ratio: 1; }
+    .ttt-cell { position: relative; background: #fff; border: 0; padding: 6%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .25s; min-height: 44px; }
+    .ttt-cell img[data-p="M"] { padding: 12%; box-sizing: border-box; }
+    .ttt-cell:hover:not(:disabled):not(.is-set) { background: #F2F3F5; }
+    .ttt-cell:disabled { cursor: default; }
+    .ttt-cell:focus-visible { outline: 3px solid var(--tvse-blue); outline-offset: -3px; }
+    .ttt-cell img { width: 100%; height: 100%; object-fit: contain; transform: scale(.6); opacity: 0; transition: transform .45s var(--ease), opacity .3s; pointer-events: none; }
+    .ttt-cell.is-set img { transform: none; opacity: 1; }
+    .ttt-cell.is-win { background: #E8E8FF; }
+    .ttt-cell.is-win img { animation: tttPulse 1.2s ease-in-out infinite; }
+    @keyframes tttPulse { 50% { transform: scale(1.08) } }
+    .ttt-cell .ghost { position: absolute; inset: 6%; opacity: 0; transition: opacity .2s; pointer-events: none; display: flex; align-items: center; justify-content: center; }
+    .ttt-cell .ghost img { width: 100%; height: 100%; object-fit: contain; }
+    .ttt-cell:hover:not(:disabled):not(.is-set) .ghost { opacity: .18; }
+    .ttt-cell .ghost img { opacity: 1; transform: none; }
+    .ttt-players { display: grid; grid-template-columns: 1fr; gap: 12px; align-items: center; }
+    @media (min-width: 640px) { .ttt-players { grid-template-columns: 1fr auto 1fr; gap: 16px; } }
+    .ttt-players .vs { text-align: center; }
+    .ttt-player { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 1px solid var(--line); transition: border-color .3s, box-shadow .3s; }
+    .ttt-player.is-turn { border-color: var(--tvse-blue); box-shadow: inset 0 0 0 1px var(--tvse-blue); }
+    .ttt-player img { width: 84px; height: 40px; object-fit: contain; flex: none; }
+    .ttt-player img[data-p="M"] { width: 40px; }
+    .ttt-player strong { display: block; font-size: 14px; } .ttt-player span { font-size: 12px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+    .ttt-player b { margin-left: auto; font-size: 28px; color: var(--tvse-blue); font-variant-numeric: tabular-nums; }
+    .ttt-status { min-height: 28px; font-size: 18px; font-weight: 700; color: var(--ink); }
+    .ttt-seg { display: inline-flex; border: 1px solid var(--line); }
+    .ttt-seg button { min-height: 44px; padding: 0 18px; background: #fff; border: 0; cursor: pointer; font: inherit; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: var(--muted); transition: background .25s, color .25s; }
+    .ttt-seg button[aria-pressed="true"] { background: var(--tvse-blue); color: #fff; }
+    .ttt-seg button:focus-visible { outline-offset: -3px; }
+
     /* ---------- Transition TVSE → Harita ---------- */
     .transition { background: var(--bg-soft); position: relative; overflow: hidden; }
     .transition .bar-tvse { position: absolute; left: 0; top: 0; height: 3px; width: 50%; background: var(--tvse-blue); transform-origin: right; transform: scaleX(1); transition: transform 1.4s var(--ease); }
@@ -322,11 +355,6 @@
     .tl-item { scroll-snap-align: start; position: relative; }
     .tl-item::before { content: ""; position: absolute; left: 0; top: -37px; width: 11px; height: 11px; border-radius: 50%; background: #fff; border: 2px solid var(--harita-green); box-sizing: border-box; }
     .tl-item .ph { aspect-ratio: 4 / 3; margin-top: 20px; }
-    .bday { display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--line); }
-    @media (min-width: 768px) { .bday { grid-template-columns: repeat(3, 1fr); } }
-    .bday > div { background: #fff; padding: 28px; }
-    .bday ul { list-style: none; margin: 14px 0 0; padding: 0; }
-    .bday li { padding: 10px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; }
     .teaser { padding: 28px; background: var(--bg-soft); border-top: 2px solid var(--harita-green); }
     .teaser.alt { border-top-color: var(--harita-blue); }
     .teaser.alt2 { border-top-color: var(--harita-purple); }
@@ -447,6 +475,7 @@
     <a class="mn-link" href="#tvse-news">Latest Stories <span aria-hidden="true">↗</span></a>
     <a class="mn-link" href="#tvse-product">Products <span aria-hidden="true">↗</span></a>
     <a class="mn-link" href="#tvse-events">Events <span aria-hidden="true">↗</span></a>
+    <a class="mn-link" href="#tvse-play">Play Break <span aria-hidden="true">↗</span></a>
     <a class="mn-link" href="#contact">Contact <span aria-hidden="true">↗</span></a>
     <p class="eyebrow mt-10">Q3 2026 Edition · July · August · September</p>
   </nav>
@@ -606,7 +635,7 @@
     <div class="lg:col-span-6 reveal" data-anim="scale">
       <div class="video-frame" data-parallax="-20" style="will-change:transform">
         <!-- Product film supplied by TVS Electronics; poster falls back to the product still -->
-        <video data-ambient autoplay loop muted playsinline preload="metadata" poster="assets/img/tvse-kb106-keyboard.webp" aria-label="TVS-E KB-106 wired keyboard product film" width="1080" height="525">
+        <video data-ambient autoplay loop muted playsinline preload="metadata" poster="assets/img/tvse-kb106-render.webp" aria-label="TVS-E KB-106 wired keyboard product film" width="1080" height="525">
           <source src="https://www.tvselectronics.in/videos/kb-106.mp4" type="video/mp4">
         </video>
       </div>
@@ -737,6 +766,34 @@
         <details class="riddle"><summary><span class="n">08</span><span class="q">I am never satisfied with “good enough.” I ask, “Can we do this better?” Step by step, day by day, I turn small changes into big results. What am I?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p class="a"><small>Answer</small>Continuous Improvement</p></details>
         <details class="riddle"><summary><span class="n">09</span><span class="q">I help you stay on track when motivation comes and goes. I turn good intentions into habits and plans into progress. What am I?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p class="a"><small>Answer</small>Discipline</p></details>
         <details class="riddle" style="border-bottom:1px solid var(--line)"><summary><span class="n">10</span><span class="q">I bring different ideas to one table. I encourage us to listen, share, and build. When everyone contributes, the final result becomes stronger. What am I?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p class="a"><small>Answer</small>Collaboration</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- PLAY BREAK — Tic Tac Toe: Keyboard vs Mouse -->
+<section class="section-tight" id="tvse-play" aria-labelledby="ttt-title" style="background:var(--bg-soft)">
+  <div class="wrap ttt">
+    <div>
+      <p class="cat reveal">Play Break</p>
+      <h2 id="ttt-title" class="h-lg mt-5 reveal">Keyboard vs Mouse</h2>
+      <p class="body mt-6 reveal" style="max-width:48ch">A quick game of tic tac toe between two TVS Electronics desk companions. Line up three keyboards or three mice to win. Use the mouse, or tab to the board and play with the arrow keys and Enter.</p>
+      <div class="mt-8 flex flex-wrap items-center gap-4 reveal">
+        <div class="ttt-seg" role="group" aria-label="Opponent">
+          <button type="button" id="ttt-mode-cpu" aria-pressed="true">Play TVSE</button>
+          <button type="button" id="ttt-mode-2p" aria-pressed="false">Two players</button>
+        </div>
+        <button class="btn btn-tvse-ghost" type="button" id="ttt-reset">New game <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
+      </div>
+      <div class="ttt-players mt-8 reveal">
+        <div class="ttt-player is-turn" id="ttt-p1"><img src="assets/img/tvse-keyboard-piece.webp" data-p="K" alt="" loading="lazy" decoding="async"><div><strong>Keyboard</strong><span>Player 1</span></div><b id="ttt-s1">0</b></div>
+        <span class="eyebrow vs">vs</span>
+        <div class="ttt-player" id="ttt-p2"><img src="assets/img/tvse-mouse.webp" data-p="M" alt="" loading="lazy" decoding="async"><div><strong>Mouse</strong><span id="ttt-p2-label">TVSE</span></div><b id="ttt-s2">0</b></div>
+      </div>
+      <p class="ttt-status mt-6" id="ttt-status" role="status" aria-live="polite">Keyboard to move.</p>
+    </div>
+    <div class="reveal" data-anim="scale">
+      <div class="ttt-board" id="ttt-board" role="grid" aria-label="Tic tac toe board, three by three">
+        <!-- cells are generated by script -->
       </div>
     </div>
   </div>
@@ -885,16 +942,6 @@
       <article class="tl-item reveal" style="--i:5"><p class="date">[ADD DATE]</p><h3 class="h-sm mt-2">[Achievement 04]</h3><p class="body mt-2">Short description of the milestone.</p></article>
     </div>
 
-    <!-- Birthday Stars -->
-    <div class="mt-20 grid gap-10 lg:grid-cols-12 lg:items-start">
-      <div class="lg:col-span-4"><p class="cat reveal">Birthday Stars · Q3 2026</p><h3 class="h-md mt-4 reveal">Wishing you a wonderful year ahead!</h3><p class="body mt-4 reveal">Happy Birthday to all our Haritans!</p></div>
-      <div class="lg:col-span-8 bday reveal" data-anim="up">
-        <div><p class="eyebrow" style="color:var(--harita-green)">July</p><ul><li>[Employee Name] — [Date]</li><li>[Employee Name] — [Date]</li><li>[Employee Name] — [Date]</li></ul></div>
-        <div><p class="eyebrow" style="color:var(--harita-blue)">August</p><ul><li>[Employee Name] — [Date]</li><li>[Employee Name] — [Date]</li><li>[Employee Name] — [Date]</li></ul></div>
-        <div><p class="eyebrow" style="color:var(--harita-purple)">September</p><ul><li>[Employee Name] — [Date]</li><li>[Employee Name] — [Date]</li><li>[Employee Name] — [Date]</li></ul></div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- HARITANS CORNER — brain teasers, smile break, caption challenge (supplied content) -->
@@ -1159,6 +1206,84 @@
   document.getElementById('story-close').addEventListener('click', closeStory);
   dlg.addEventListener('click', function (e) { if (e.target === dlg) closeStory(); });
   dlg.addEventListener('close', function () { document.body.style.overflow = ''; if (lastTrigger) lastTrigger.focus(); });
+
+  /* ---------- Play Break: Tic Tac Toe (Keyboard vs Mouse) ---------- */
+  (function ttt() {
+    var board = document.getElementById('ttt-board'); if (!board) return;
+    var PIECES = { K: { name: 'Keyboard', src: 'assets/img/tvse-keyboard-piece.webp' }, M: { name: 'Mouse', src: 'assets/img/tvse-mouse.webp' } };
+    var LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    var cells = [], state, turn, over, vsCpu = true, score = { K: 0, M: 0 }, thinking = false;
+    var status = document.getElementById('ttt-status'), p1 = document.getElementById('ttt-p1'), p2 = document.getElementById('ttt-p2');
+    var modeCpu = document.getElementById('ttt-mode-cpu'), mode2p = document.getElementById('ttt-mode-2p');
+
+    for (var i = 0; i < 9; i++) {
+      var c = document.createElement('button');
+      c.type = 'button'; c.className = 'ttt-cell'; c.setAttribute('role', 'gridcell'); c.dataset.i = i; c.tabIndex = i === 0 ? 0 : -1;
+      c.innerHTML = '<span class="ghost" aria-hidden="true"><img alt=""></span><img alt="">';
+      c.addEventListener('click', onCell); c.addEventListener('keydown', onKey); c.addEventListener('mouseenter', ghost);
+      board.appendChild(c); cells.push(c);
+    }
+    function label(i) { var r = Math.floor(i / 3) + 1, col = (i % 3) + 1; return (state[i] ? PIECES[state[i]].name : 'Empty') + ', row ' + r + ' column ' + col; }
+    function ghost(e) { var img = e.currentTarget.querySelector('.ghost img'); if (img) { img.src = PIECES[turn].src; img.setAttribute('data-p', turn); } }
+    function render() {
+      cells.forEach(function (c, i) {
+        var img = c.querySelector(':scope > img'); var v = state[i];
+        c.classList.toggle('is-set', !!v); c.classList.remove('is-win');
+        if (v) { img.src = PIECES[v].src; img.alt = PIECES[v].name; img.setAttribute('data-p', v); } else { img.removeAttribute('src'); img.alt = ''; img.removeAttribute('data-p'); }
+        c.disabled = over || !!v; c.setAttribute('aria-label', label(i));
+      });
+      p1.classList.toggle('is-turn', !over && turn === 'K'); p2.classList.toggle('is-turn', !over && turn === 'M');
+      document.getElementById('ttt-s1').textContent = score.K; document.getElementById('ttt-s2').textContent = score.M;
+      document.getElementById('ttt-p2-label').textContent = vsCpu ? 'TVSE' : 'Player 2';
+    }
+    function winner(b) { for (var i = 0; i < LINES.length; i++) { var l = LINES[i]; if (b[l[0]] && b[l[0]] === b[l[1]] && b[l[0]] === b[l[2]]) return { p: b[l[0]], line: l }; } return b.indexOf(null) === -1 ? { p: 'D' } : null; }
+    function reset(keepScore) {
+      state = [null,null,null,null,null,null,null,null,null]; turn = 'K'; over = false; thinking = false;
+      if (!keepScore) score = { K: 0, M: 0 };
+      render(); status.textContent = 'Keyboard to move.';
+    }
+    function finish(w) {
+      over = true;
+      if (w.p === 'D') { status.textContent = 'A draw. Play again?'; }
+      else { score[w.p]++; w.line.forEach(function (i) { cells[i].classList.add('is-win'); }); status.textContent = PIECES[w.p].name + ' wins the round!'; }
+      render(); if (w.p !== 'D') w.line.forEach(function (i) { cells[i].classList.add('is-win'); });
+    }
+    function play(i) {
+      if (over || state[i] || thinking) return;
+      state[i] = turn; var w = winner(state);
+      if (w) return finish(w);
+      turn = turn === 'K' ? 'M' : 'K'; render();
+      status.textContent = PIECES[turn].name + ' to move.';
+      if (vsCpu && turn === 'M') { thinking = true; render(); status.textContent = 'TVSE is thinking…'; setTimeout(cpuMove, 520); }
+    }
+    function cpuMove() {
+      thinking = false;
+      var best = -Infinity, move = -1;
+      for (var i = 0; i < 9; i++) if (!state[i]) { state[i] = 'M'; var sc = minimax(state, 0, false); state[i] = null; if (sc > best) { best = sc; move = i; } }
+      play(move);
+      var focusTarget = cells.filter(function (c) { return !c.disabled; })[0]; if (focusTarget && board.contains(document.activeElement)) focusTarget.focus();
+    }
+    function minimax(b, depth, maxing) {
+      var w = winner(b); if (w) return w.p === 'M' ? 10 - depth : w.p === 'K' ? depth - 10 : 0;
+      var best = maxing ? -Infinity : Infinity;
+      for (var i = 0; i < 9; i++) if (!b[i]) { b[i] = maxing ? 'M' : 'K'; var sc = minimax(b, depth + 1, !maxing); b[i] = null; best = maxing ? Math.max(best, sc) : Math.min(best, sc); }
+      return best;
+    }
+    function onCell(e) { play(+e.currentTarget.dataset.i); }
+    function onKey(e) {
+      var i = +e.currentTarget.dataset.i, next = null;
+      if (e.key === 'ArrowRight') next = (i + 1) % 9; else if (e.key === 'ArrowLeft') next = (i + 8) % 9;
+      else if (e.key === 'ArrowDown') next = (i + 3) % 9; else if (e.key === 'ArrowUp') next = (i + 6) % 9;
+      else if (e.key === 'Home') next = 0; else if (e.key === 'End') next = 8;
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(i); return; }
+      if (next === null) return;
+      e.preventDefault(); cells.forEach(function (c) { c.tabIndex = -1; }); cells[next].tabIndex = 0; cells[next].focus();
+    }
+    document.getElementById('ttt-reset').addEventListener('click', function () { reset(true); cells[0].focus(); });
+    modeCpu.addEventListener('click', function () { vsCpu = true; modeCpu.setAttribute('aria-pressed', 'true'); mode2p.setAttribute('aria-pressed', 'false'); reset(false); });
+    mode2p.addEventListener('click', function () { vsCpu = false; modeCpu.setAttribute('aria-pressed', 'false'); mode2p.setAttribute('aria-pressed', 'true'); reset(false); });
+    reset(false);
+  })();
 
   /* ---------- Ambient video support (only used when an actual video asset is added) ---------- */
   document.querySelectorAll('video[data-ambient]').forEach(function (v) {
