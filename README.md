@@ -3,7 +3,7 @@
 Interactive, responsive HTML5 corporate newsletter for **TVS Electronics (TVSE)** and **Harita Techserv**,
 built from *TVSE Times — July, August, September 2026* and the *Haritans Q3 2026* draft.
 
-- `index.html` — the complete single-page publication (HTML5, Tailwind CSS via CDN, vanilla JavaScript, CSS animations, IntersectionObserver reveals, accessible `<dialog>` menu and story reader).
+- `index.html` — the complete single-page publication (HTML5, Tailwind CSS via CDN, vanilla JavaScript, inline SVG icons, CSS animations, IntersectionObserver reveals, accessible `<dialog>` menu and story reader).
 - `assets/img/` — the 30 supplied newsletter photographs and posters, converted to WebP (plus two product crops of the KB-106 poster used in the hero and product spotlight).
 - `assets/fonts/` — D-DIN Regular and Bold (Datto Inc., SIL Open Font License 1.1) self-hosted for the TVSE sections.
 
@@ -25,10 +25,9 @@ Open `index.html` directly, or serve the folder with any static server.
 
 Everything on the page comes from the supplied documents. Items the source did not provide are marked in the page and should be filled before publishing:
 
-- `[ADD IMAGE]` — remaining Harita visuals (timeline milestones, team moments, wellness, mindset) and the ITIL Training photo. The Harita featured story, technology feature and index rows use the engineering imagery from the Haritans editions; the customer-champion portraits are the four supplied photographs, named per the June'26 Client Appreciation page.
+- Stories without a supplied photograph (ITIL Training, the Harita timeline milestones, team moments, wellness and mindset rows) render as text-only layouts rather than empty image slots. The Harita featured story, technology feature and index rows use the engineering imagery from the Haritans editions; the customer-champion portraits are the four supplied photographs, named per the June'26 Client Appreciation page.
 - `[Achievement 01–04]`, `[Session Topic 01/02]`, `[Employee Name] — [Date]` — Harita milestones, knowledge-sharing sessions and birthday stars, as drafted.
-- `[ADD CTA URL]` (HTML comments / `data-placeholder` attributes) — KB-106 product page, caption-challenge submission link, social profiles, Privacy and Terms pages. These currently point to the company home pages so every button works.
-- `[ADD SOCIAL URLS]` — footer social icons.
+- `[ADD CTA URL]` (HTML comments / `data-placeholder` attributes) — KB-106 product page, caption-challenge submission link, Privacy and Terms pages. These currently point to the company home pages so every button works. The footer intentionally carries no social media links.
 
 No statistics, dates, partnerships or claims were invented; the "Q3 at a glance" counts are taken directly from the stories in the issue.
 

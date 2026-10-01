@@ -228,17 +228,6 @@
     .cat { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; font-weight: 700; }
     .date { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 
-    /* Placeholder blocks — clearly marked content slots (no invented imagery) */
-    .ph { position: relative; display: flex; align-items: flex-end; overflow: hidden; }
-    .ph::before { content: ""; position: absolute; inset: 0; opacity: .92; }
-    .ph::after { content: ""; position: absolute; inset: 12px; border: 1px dashed rgba(255,255,255,.55); pointer-events: none; }
-    .ph > span { position: relative; z-index: 1; margin: 24px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; font-weight: 700; color: #fff; background: rgba(0,0,0,.28); padding: 8px 10px; backdrop-filter: blur(6px); }
-    .ph-harita::before { background: var(--harita-grad); }
-    .ph-harita-2::before { background: var(--harita-grad-2); }
-    .ph-neutral::before { background: linear-gradient(135deg, #E5E7EB, #F7F8FA); }
-    .ph-neutral::after { border-color: rgba(22,22,22,.3); }
-    .ph-neutral > span { color: var(--ink); background: rgba(255,255,255,.7); }
-    .ph-text { color: var(--muted); font-style: normal; border-bottom: 1px dashed var(--line); }
 
     /* ---------- TVSE section ---------- */
     .tvse-intro { position: relative; color: #fff; background: #0000DA; background-image: var(--tvse-grad); overflow: hidden; isolation: isolate; }
@@ -315,7 +304,8 @@
     .harita-row { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 36px 0; border-top: 1px solid var(--line); align-items: start; }
     @media (min-width: 768px) and (max-width: 1023px) { .harita-row { grid-template-columns: 48px 1fr 200px; grid-template-rows: auto auto; gap: 12px 28px; }
       .harita-row > :nth-child(1) { grid-column: 1; grid-row: 1; } .harita-row > :nth-child(2) { grid-column: 2; grid-row: 1; } .harita-row > :nth-child(3) { grid-column: 2; grid-row: 2; } .harita-row > :nth-child(4) { grid-column: 3; grid-row: 1 / span 2; } }
-    @media (min-width: 1024px) { .harita-row { grid-template-columns: 64px 1.2fr 1fr 220px; gap: 40px; } }
+    @media (min-width: 1024px) { .harita-row { grid-template-columns: 64px 1.2fr 1fr 220px; gap: 40px; } .harita-row.no-media > :nth-child(3) { grid-column: 3 / 5; max-width: 62ch; } }
+    @media (min-width: 768px) and (max-width: 1023px) { .harita-row.no-media { grid-template-columns: 48px 1fr; } }
     .harita-row .num { font-size: 13px; letter-spacing: .14em; color: var(--harita-green); font-weight: 700; padding-top: 6px; }
     .harita-row h3 { margin: 0; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.15; font-weight: 700; letter-spacing: -0.015em; }
     .harita-row .thumb { aspect-ratio: 4 / 3; }
@@ -715,7 +705,7 @@
       <article class="session reveal" style="--i:2"><p class="date">3 September 2026 · Thursday</p><div><h3 class="h-sm">SEBI Insider Trading Awareness</h3><p class="body mt-3">Strengthened understanding of insider trading regulations and compliance responsibilities, highlighting the responsible handling of sensitive information to uphold transparency and integrity.</p></div><div class="img-frame"><img src="assets/img/tvse-sebi-session.webp" width="591" height="886" alt="Session poster: SEBI Insider Trading Regulations awareness session" loading="lazy" decoding="async"></div></article>
       <article class="session reveal" style="--i:3"><p class="date">10 September 2026 · Thursday</p><div><h3 class="h-sm">Stress Management</h3><p class="body mt-3">Focused on understanding common workplace stressors and developing healthy ways to manage them &mdash; practical techniques to handle pressure, build resilience and maintain balance.</p></div><div class="img-frame"><img src="assets/img/tvse-stress-management-session.webp" width="399" height="564" alt="Session poster: Stress Management, a calmer you, a brighter tomorrow" loading="lazy" decoding="async"></div></article>
       <article class="session reveal" style="--i:4"><p class="date">Q3 2026</p><div><h3 class="h-sm">Leadership Training</h3><p class="body mt-3">An opportunity to reflect on leadership approach and strengthen the ability to navigate workplace challenges &mdash; inspiring teams, building trust, making thoughtful decisions and leading with greater impact.</p></div><div class="img-frame"><img src="assets/img/tvse-leadership-03.webp" width="600" height="800" alt="Participants working together during the leadership programme" loading="lazy" decoding="async"></div></article>
-      <article class="session reveal" style="--i:5"><p class="date">Q3 2026</p><div><h3 class="h-sm">ITIL Training</h3><p class="body mt-3">Strengthened understanding of IT service management and best practices, with a focus on effective service delivery, structured processes and continuous improvement.</p></div><div class="ph ph-neutral" style="aspect-ratio:3/4;max-width:200px"><span>[ADD IMAGE]</span></div></article>
+      <article class="session reveal" style="--i:5"><p class="date">Q3 2026</p><div><h3 class="h-sm">ITIL Training</h3><p class="body mt-3">Strengthened understanding of IT service management and best practices, with a focus on effective service delivery, structured processes and continuous improvement.</p></div></article>
     </div>
   </div>
 </section>
@@ -849,9 +839,9 @@
       <article class="harita-row reveal" style="--i:0"><p class="num">01</p><div><p class="cat">Business</p><h3 class="mt-3">Progress. Collaboration. Innovation.</h3></div><p class="body">Q3 was a quarter of continued progress, collaboration and new opportunities &mdash; engineering excellence, customer focus, innovation and people development.</p><div class="img-frame thumb harita-tint"><img src="assets/img/harita-blueprint.webp" width="1600" height="904" alt="" loading="lazy" decoding="async"></div></article>
       <article class="harita-row reveal" style="--i:1"><p class="num">02</p><div><p class="cat">People</p><h3 class="mt-3">Celebrating our customer champions</h3></div><p class="body">Behind every successful delivery is a team committed to understanding customer needs, solving challenges and delivering with consistency. A big thank you to our customer champions for your hard work, positive energy and dedication. <a class="link" href="#harita-champions">Meet the champions <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p><div class="thumb grid grid-cols-2 gap-1"><img src="assets/img/harita-champion-harish-raghavendra.webp" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;aspect-ratio:1"><img src="assets/img/harita-champion-aravinth.webp" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;aspect-ratio:1"><img src="assets/img/harita-champion-tamilselvan-kalisamy.webp" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;aspect-ratio:1"><img src="assets/img/harita-champion-santhosh-kumar-r.webp" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;aspect-ratio:1"></div></article>
       <article class="harita-row reveal" style="--i:2"><p class="num">03</p><div><p class="cat">Engineering</p><h3 class="mt-3">Learn. Share. Grow.</h3></div><p class="body">Knowledge sharing continues to play an important role in building stronger, more capable teams. During Q3, team members participated in sessions sharing practical knowledge, technology insights and new approaches to everyday challenges.</p><div class="img-frame thumb harita-tint-2"><img src="assets/img/harita-drafting.webp" width="1600" height="902" alt="" loading="lazy" decoding="async"></div></article>
-      <article class="harita-row reveal" style="--i:3"><p class="num">04</p><div><p class="cat">People</p><h3 class="mt-3">Together, we make it happen</h3></div><p class="body">Q3 brought opportunities to collaborate, connect and celebrate as teams. From project milestones to team activities, every moment contributes to the culture we build together. Teamwork · Collaboration · Learning · Celebration.</p><div class="ph ph-harita-2 thumb" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div></article>
-      <article class="harita-row reveal" style="--i:4"><p class="num">05</p><div><p class="cat">Wellness</p><h3 class="mt-3">Small habits. Big difference.</h3></div><div class="body"><p class="m-0">A productive workplace starts with healthy and energised people. Try these during your workday:</p><ol class="mt-3 pl-5 space-y-1"><li>Take movement breaks</li><li>Stay hydrated</li><li>Correct your posture</li><li>Stretch</li><li>Take a mental break</li></ol></div><div class="ph ph-harita thumb" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div></article>
-      <article class="harita-row reveal" style="--i:5; border-bottom:1px solid var(--line)"><p class="num">06</p><div><p class="cat">Culture</p><h3 class="mt-3">Mindset matters</h3></div><p class="body">A positive mindset can influence collaboration, creativity and the way we approach everyday challenges. Recognition, continuous learning, open communication, team collaboration, supportive leadership and career development help us grow. Every contribution matters. Every idea can create an impact.</p><div class="ph ph-harita-2 thumb" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div></article>
+      <article class="harita-row no-media reveal" style="--i:3"><p class="num">04</p><div><p class="cat">People</p><h3 class="mt-3">Together, we make it happen</h3></div><p class="body">Q3 brought opportunities to collaborate, connect and celebrate as teams. From project milestones to team activities, every moment contributes to the culture we build together. Teamwork · Collaboration · Learning · Celebration.</p></article>
+      <article class="harita-row no-media reveal" style="--i:4"><p class="num">05</p><div><p class="cat">Wellness</p><h3 class="mt-3">Small habits. Big difference.</h3></div><div class="body"><p class="m-0">A productive workplace starts with healthy and energised people. Try these during your workday:</p><ol class="mt-3 pl-5 space-y-1"><li>Take movement breaks</li><li>Stay hydrated</li><li>Correct your posture</li><li>Stretch</li><li>Take a mental break</li></ol></div></article>
+      <article class="harita-row no-media reveal" style="--i:5; border-bottom:1px solid var(--line)"><p class="num">06</p><div><p class="cat">Culture</p><h3 class="mt-3">Mindset matters</h3></div><p class="body">A positive mindset can influence collaboration, creativity and the way we approach everyday challenges. Recognition, continuous learning, open communication, team collaboration, supportive leadership and career development help us grow. Every contribution matters. Every idea can create an impact.</p></article>
     </div>
   </div>
 </section>
@@ -887,12 +877,12 @@
     </div>
     <div class="timeline reveal" data-stagger-children aria-label="Q3 milestones and sessions">
       <div class="progress" aria-hidden="true"></div>
-      <article class="tl-item reveal" style="--i:0"><p class="date">[ADD DATE]</p><h3 class="h-sm mt-2">[Achievement 01]</h3><p class="body mt-2">Short description of the milestone.</p><div class="ph ph-harita" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div></article>
-      <article class="tl-item reveal" style="--i:1"><p class="date">[ADD DATE]</p><h3 class="h-sm mt-2">[Achievement 02]</h3><p class="body mt-2">Short description of the milestone.</p><div class="ph ph-harita-2" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div></article>
-      <article class="tl-item reveal" style="--i:2"><p class="date">[ADD DATE]</p><h3 class="h-sm mt-2">Knowledge Sharing: [Session Topic 01]</h3><p class="body mt-2">Speaker: [Name]. Key takeaways: [Key learning] · [Key learning] · [Key learning]</p><div class="ph ph-harita" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div></article>
-      <article class="tl-item reveal" style="--i:3"><p class="date">[ADD DATE]</p><h3 class="h-sm mt-2">Knowledge Sharing: [Session Topic 02]</h3><p class="body mt-2">Speaker: [Name]. Key takeaways: [Key learning] · [Key learning] · [Key learning]</p><div class="ph ph-harita-2" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div></article>
-      <article class="tl-item reveal" style="--i:4"><p class="date">[ADD DATE]</p><h3 class="h-sm mt-2">[Achievement 03]</h3><p class="body mt-2">Short description of the milestone.</p><div class="ph ph-harita" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div></article>
-      <article class="tl-item reveal" style="--i:5"><p class="date">[ADD DATE]</p><h3 class="h-sm mt-2">[Achievement 04]</h3><p class="body mt-2">Short description of the milestone.</p><div class="ph ph-harita-2" role="img" aria-label="Image placeholder"><span>[ADD IMAGE]</span></div></article>
+      <article class="tl-item reveal" style="--i:0"><p class="date">[ADD DATE]</p><h3 class="h-sm mt-2">[Achievement 01]</h3><p class="body mt-2">Short description of the milestone.</p></article>
+      <article class="tl-item reveal" style="--i:1"><p class="date">[ADD DATE]</p><h3 class="h-sm mt-2">[Achievement 02]</h3><p class="body mt-2">Short description of the milestone.</p></article>
+      <article class="tl-item reveal" style="--i:2"><p class="date">[ADD DATE]</p><h3 class="h-sm mt-2">Knowledge Sharing: [Session Topic 01]</h3><p class="body mt-2">Speaker: [Name]. Key takeaways: [Key learning] · [Key learning] · [Key learning]</p></article>
+      <article class="tl-item reveal" style="--i:3"><p class="date">[ADD DATE]</p><h3 class="h-sm mt-2">Knowledge Sharing: [Session Topic 02]</h3><p class="body mt-2">Speaker: [Name]. Key takeaways: [Key learning] · [Key learning] · [Key learning]</p></article>
+      <article class="tl-item reveal" style="--i:4"><p class="date">[ADD DATE]</p><h3 class="h-sm mt-2">[Achievement 03]</h3><p class="body mt-2">Short description of the milestone.</p></article>
+      <article class="tl-item reveal" style="--i:5"><p class="date">[ADD DATE]</p><h3 class="h-sm mt-2">[Achievement 04]</h3><p class="body mt-2">Short description of the milestone.</p></article>
     </div>
 
     <!-- Birthday Stars -->
@@ -974,30 +964,16 @@
 <!-- ============================================================ 17. FOOTER ============================================================ -->
 <footer class="footer" id="contact">
   <div class="wrap pt-20 pb-12">
-    <div class="grid gap-16 lg:grid-cols-2">
+    <div class="grid gap-12 md:gap-16 md:grid-cols-2">
       <div class="brand-tvse">
         <img src="https://www.tvselectronics.in/images/tvse-logo-v2.png" alt="TVS Electronics" width="140" height="40" style="height:40px;width:auto" loading="lazy" decoding="async">
         <p class="body mt-8 max-w-sm">Integrated electronics solutions &mdash; products, services and manufacturing. Designed to Empower.</p>
         <a class="link mt-4" href="https://www.tvselectronics.in/" target="_blank" rel="noopener" style="color:var(--tvse-blue)">www.tvselectronics.in <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
-        <div class="social mt-6 flex gap-3" aria-label="TVS Electronics social media">
-          <!-- [ADD CTA URL]: official TVSE social profiles (handle shown in Q3 materials: @tvselectronics) -->
-          <a href="https://www.tvselectronics.in/" target="_blank" rel="noopener" aria-label="TVS Electronics on LinkedIn" data-placeholder="[ADD CTA URL]"><i data-lucide="linkedin" aria-hidden="true"></i></a>
-          <a href="https://www.tvselectronics.in/" target="_blank" rel="noopener" aria-label="TVS Electronics on Instagram" data-placeholder="[ADD CTA URL]"><i data-lucide="instagram" aria-hidden="true"></i></a>
-          <a href="https://www.tvselectronics.in/" target="_blank" rel="noopener" aria-label="TVS Electronics on YouTube" data-placeholder="[ADD CTA URL]"><i data-lucide="youtube" aria-hidden="true"></i></a>
-        </div>
-        <p class="mt-3 text-xs" style="color:var(--muted)">@tvselectronics · <span class="ph-text">[ADD SOCIAL URLS]</span></p>
       </div>
-      <div class="brand-harita lg:pl-16 lg:border-l" style="border-color:var(--line)">
+      <div class="brand-harita md:pl-12 lg:pl-16 md:border-l pt-12 md:pt-0 border-t md:border-t-0" style="border-color:var(--line)">
         <img src="assets/img/harita-logo.png" alt="Harita Techserv" width="160" height="48" style="height:auto;width:160px" loading="lazy" decoding="async">
         <p class="body mt-8 max-w-sm">Engineering Excellence. People First. Continuous Innovation.</p>
         <a class="link mt-4" href="https://www.harita.in" target="_blank" rel="noopener" style="color:var(--harita-green)">www.harita.in <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
-        <div class="social mt-6 flex gap-3" aria-label="Harita Techserv social media">
-          <!-- [ADD CTA URL]: official Harita Techserv social profiles -->
-          <a href="https://www.harita.in" target="_blank" rel="noopener" aria-label="Harita Techserv on LinkedIn" data-placeholder="[ADD CTA URL]"><i data-lucide="linkedin" aria-hidden="true"></i></a>
-          <a href="https://www.harita.in" target="_blank" rel="noopener" aria-label="Harita Techserv on Instagram" data-placeholder="[ADD CTA URL]"><i data-lucide="instagram" aria-hidden="true"></i></a>
-          <a href="https://www.harita.in" target="_blank" rel="noopener" aria-label="Harita Techserv on YouTube" data-placeholder="[ADD CTA URL]"><i data-lucide="youtube" aria-hidden="true"></i></a>
-        </div>
-        <p class="mt-3 text-xs" style="color:var(--muted)"><span class="ph-text">[ADD SOCIAL URLS]</span></p>
       </div>
     </div>
     <div class="rule mt-16"></div>
@@ -1087,8 +1063,6 @@
   <div class="meta"><span>Harita Techserv</span><span>Q3 2026</span></div></div></div>
 </template>
 
-<!-- Lucide icons (decorative footer icons; CTA arrows are inline SVG so motion never depends on the CDN) -->
-<script src="https://unpkg.com/lucide@latest" defer></script>
 <script>
 (function () {
   'use strict';
@@ -1185,10 +1159,6 @@
   document.getElementById('story-close').addEventListener('click', closeStory);
   dlg.addEventListener('click', function (e) { if (e.target === dlg) closeStory(); });
   dlg.addEventListener('close', function () { document.body.style.overflow = ''; if (lastTrigger) lastTrigger.focus(); });
-
-  /* ---------- Icons ---------- */
-  function icons() { if (window.lucide && typeof window.lucide.createIcons === 'function') window.lucide.createIcons(); }
-  if (document.readyState === 'complete') icons(); else window.addEventListener('load', icons);
 
   /* ---------- Ambient video support (only used when an actual video asset is added) ---------- */
   document.querySelectorAll('video[data-ambient]').forEach(function (v) {
